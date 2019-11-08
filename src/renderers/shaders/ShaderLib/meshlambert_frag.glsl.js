@@ -33,6 +33,7 @@ varying vec3 vIndirectFront;
 #include <specularmap_pars_fragment>
 #include <logdepthbuf_pars_fragment>
 #include <clipping_planes_pars_fragment>
+#include <dissolution_pars_fragment>
 
 void main() {
 
@@ -42,6 +43,7 @@ void main() {
 	ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );
 	vec3 totalEmissiveRadiance = emissive;
 
+	#include <content_fragment>
 	#include <logdepthbuf_fragment>
 	#include <map_fragment>
 	#include <color_fragment>
@@ -93,5 +95,8 @@ void main() {
 	#include <fog_fragment>
 	#include <premultiplied_alpha_fragment>
 	#include <dithering_fragment>
+
+	#include <dissolutionmap_fragment>
+	#include <content_pick_fragment>
 }
 `;

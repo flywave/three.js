@@ -870,7 +870,6 @@ export default QUnit.module( 'Core', () => {
 					"name": "attribute1"
 				} ]
 			};
-			gold.data.morphTargetsRelative = false;
 
 			assert.deepEqual( j, gold, "Generated JSON with morphAttributes is as expected" );
 

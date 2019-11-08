@@ -968,6 +968,10 @@ function WebGLState( gl, extensions, capabilities ) {
 
 	}
 
+	function resetProgram(){
+		currentProgram=null;
+	}
+
 	return {
 
 		buffers: {
@@ -1006,7 +1010,9 @@ function WebGLState( gl, extensions, capabilities ) {
 		scissor: scissor,
 		viewport: viewport,
 
-		reset: reset
+		reset: reset,
+
+		resetProgram:resetProgram
 
 	};
 

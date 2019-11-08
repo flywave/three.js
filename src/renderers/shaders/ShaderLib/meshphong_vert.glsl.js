@@ -41,6 +41,10 @@ void main() {
 #endif
 
 	#include <begin_vertex>
+	
+	#include <section_line_vertex>
+	#include <content_vertex>
+	
 	#include <morphtarget_vertex>
 	#include <skinning_vertex>
 	#include <displacementmap_vertex>
@@ -54,6 +58,8 @@ void main() {
 	#include <envmap_vertex>
 	#include <shadowmap_vertex>
 	#include <fog_vertex>
+
+	#include <dissolutionmap_vertex>
 
 }
 `;

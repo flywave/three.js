@@ -37,6 +37,8 @@ function WebGLPrograms( renderer, extensions, capabilities ) {
 	var parameterNames = [
 		"precision", "isWebGL2", "supportsVertexTextures", "outputEncoding", "instancing", "numMultiviewViews",
 		"map", "mapEncoding", "matcap", "matcapEncoding", "envMap", "envMapMode", "envMapEncoding", "envMapCubeUV",
+		'dissolutionMap','dissolutionMeltingPoint','dissolutionCriticalValue','dissolutionCriticalValueColor',
+		"isSectionLine","radiusScale",
 		"lightMap", "aoMap", "emissiveMap", "emissiveMapEncoding", "bumpMap", "normalMap", "objectSpaceNormalMap", "tangentSpaceNormalMap", "clearcoatNormalMap", "displacementMap", "specularMap",
 		"roughnessMap", "metalnessMap", "gradientMap",
 		"alphaMap", "combine", "vertexColors", "vertexTangents", "vertexUvs", "uvsVertexOnly", "fog", "useFog", "fogExp2",
@@ -233,8 +235,20 @@ function WebGLPrograms( renderer, extensions, capabilities ) {
 			doubleSided: material.side === DoubleSide,
 			flipSided: material.side === BackSide,
 
-			depthPacking: ( material.depthPacking !== undefined ) ? material.depthPacking : false
+			depthPacking: ( material.depthPacking !== undefined ) ? material.depthPacking : false,
+			enableDissolution: !!material.enableDissolution,
+			dissolutionMeltingPoint: material.dissolutionMeltingPoint,
+			dissolutionCriticalValue: material.dissolutionCriticalValue,
+			dissolutionCriticalValueColor: material.dissolutionCriticalValueColor,
 
+			isSectionLine: object.type === 'SectionLineMesh' || object.type === 'ContentSectionLineMesh',
+			radiusScale: object.radiusScale, 
+			isContentMesh: object.type === 'ContentSectionLineMesh' || object.type === 'ContentMesh',
+			offsetStep: object.offsetStep,
+			batchTexture: object.batchTexture,
+			infoTexture: object.infoTexture,
+			scaleTexture:object.scaleTexture,
+			enableContentPick: object.enableContentPick
 		};
 
 		return parameters;

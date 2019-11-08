@@ -5,6 +5,7 @@ export { WebGLMultisampleRenderTarget } from './renderers/WebGLMultisampleRender
 export { WebGLRenderTargetCube } from './renderers/WebGLRenderTargetCube.js';
 export { WebGLRenderTarget } from './renderers/WebGLRenderTarget.js';
 export { WebGLRenderer } from './renderers/WebGLRenderer.js';
+export { WebGLProgram } from './renderers/webgl/WebGLProgram.js';
 export { ShaderLib } from './renderers/shaders/ShaderLib.js';
 export { UniformsLib } from './renderers/shaders/UniformsLib.js';
 export { UniformsUtils } from './renderers/shaders/UniformsUtils.js';
@@ -18,6 +19,9 @@ export { SkinnedMesh } from './objects/SkinnedMesh.js';
 export { Skeleton } from './objects/Skeleton.js';
 export { Bone } from './objects/Bone.js';
 export { Mesh } from './objects/Mesh.js';
+export { SectionLineMesh } from './objects/SectionLineMesh.js'; 
+export { ContentMesh } from './objects/ContentMesh.js';
+export { ContentSectionLineMesh } from './objects/ContentSectionLineMesh.js';
 export { InstancedMesh } from './objects/InstancedMesh.js';
 export { LineSegments } from './objects/LineSegments.js';
 export { LineLoop } from './objects/LineLoop.js';

@@ -469,6 +469,19 @@ function WebGLProgram( renderer, extensions, cacheKey, material, shader, paramet
 
 			parameters.vertexTangents ? '#define USE_TANGENT' : '',
 			parameters.vertexColors ? '#define USE_COLOR' : '',
+
+			/**
+             * Add DISSOLUTION effect by wh
+             */
+            parameters.enableDissolution ? '#define USE_DISSOLUTIONMAP' : '',
+            parameters.isSectionLine ? '#define USE_SECTION_LINE' : '',
+            parameters.isContentMesh ? '#define USE_CONENT_MESH' : '',
+
+            parameters.enableContentPick ? '#define USE_ENABLE_CONTENT_PICK' : '',
+            /**
+             * End
+             */ 
+			
 			parameters.vertexUvs ? '#define USE_UV' : '',
 			parameters.uvsVertexOnly ? '#define UVS_VERTEX_ONLY' : '',
 
@@ -520,6 +533,60 @@ function WebGLProgram( renderer, extensions, cacheKey, material, shader, paramet
 
 			'#endif',
 
+			 /**
+             * Add DISSOLUTION effect by wh
+             */
+
+            '#ifdef USE_DISSOLUTIONMAP',
+
+            '	varying vec2  dissolutionUv;',
+
+            '#endif',
+
+            '#ifdef USE_CONENT_MESH',
+
+            '	varying vec4 vbatchColor;',
+
+            '#ifdef USE_ENABLE_CONTENT_PICK',
+
+            '	varying vec4 pickColor;',
+
+            '#endif',
+
+            '	uniform sampler2D batchTexture;',
+            '	uniform sampler2D infoTexture;',
+            '	uniform sampler2D scaleTexture;',
+            
+            '	uniform vec4 offsetStep;',
+            '	attribute float batchId;',
+            '	vec2 computeSt(float _batchId)',
+            '	{ ',
+            '   	float stepX = offsetStep.x; ',
+            '   	float centerX = offsetStep.y; ',
+            '   	return vec2(centerX + (_batchId * stepX), 0.5); ',
+            '}',
+            '#endif',
+
+            '#ifdef USE_SECTION_LINE',
+            '#ifndef USE_CONENT_MESH',
+            '	uniform float radiusScale;',
+            '#endif',
+            '	attribute vec3 vertexCenter;',
+
+            '#endif',
+
+            '#ifdef USE_INSTANCED_MESH',
+
+            '	attribute vec3 insPosition;',
+            '	attribute vec3 insScale;',
+            '	attribute vec4 insRotation;',
+            '	attribute float insShow;',
+
+            '#endif',
+            /**
+             * End wh
+             */
+			
 			'#ifdef USE_MORPHTARGETS',
 
 			'	attribute vec3 morphTarget0;',
@@ -596,6 +663,18 @@ function WebGLProgram( renderer, extensions, cacheKey, material, shader, paramet
 
 			parameters.vertexTangents ? '#define USE_TANGENT' : '',
 			parameters.vertexColors ? '#define USE_COLOR' : '',
+
+			 /**
+             * Add DISSOLUTION effect by wh
+             */
+            parameters.enableDissolution ? '#define USE_DISSOLUTIONMAP' : '',
+            /**
+             * Add ContentMesh  by wh
+             */
+            parameters.enableContentPick ? '#define USE_ENABLE_CONTENT_PICK' : '',
+			parameters.isContentMesh ? '#define USE_CONENT_MESH' : '',
+			//end
+
 			parameters.vertexUvs ? '#define USE_UV' : '',
 			parameters.uvsVertexOnly ? '#define UVS_VERTEX_ONLY' : '',
 
@@ -621,6 +700,24 @@ function WebGLProgram( renderer, extensions, cacheKey, material, shader, paramet
 			'uniform mat4 viewMatrix;',
 			'uniform vec3 cameraPosition;',
 			'uniform bool isOrthographic;',
+
+			 /**
+             * Add DISSOLUTION effect by wh
+             */
+            '#ifdef USE_DISSOLUTIONMAP',
+
+            '	uniform vec4  dissolutionParam;',
+            '	uniform vec4  dissolutionColor;',
+            '	varying vec2  dissolutionUv;',
+
+            '#endif',
+            '#ifdef USE_CONENT_MESH',
+            '	varying vec4 vbatchColor;',
+            '#endif',
+            '#ifdef USE_ENABLE_CONTENT_PICK',
+            '	varying vec4 pickColor;',
+			'#endif',
+			
 
 			( parameters.toneMapping !== NoToneMapping ) ? '#define TONE_MAPPING' : '',
 			( parameters.toneMapping !== NoToneMapping ) ? ShaderChunk[ 'tonemapping_pars_fragment' ] : '', // this code is required here because it is used by the toneMapping() function defined below

@@ -84,7 +84,7 @@ Object.assign( Box2.prototype, {
 
 		if ( target === undefined ) {
 
-			console.warn( 'THREE.Box2: .getCenter() target is now required' );
+			// console.warn( 'THREE.Box2: .getCenter() target is now required' );
 			target = new Vector2();
 
 		}
@@ -97,7 +97,7 @@ Object.assign( Box2.prototype, {
 
 		if ( target === undefined ) {
 
-			console.warn( 'THREE.Box2: .getSize() target is now required' );
+			// console.warn( 'THREE.Box2: .getSize() target is now required' );
 			target = new Vector2();
 
 		}

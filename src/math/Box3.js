@@ -189,7 +189,7 @@ Object.assign( Box3.prototype, {
 
 		if ( target === undefined ) {
 
-			console.warn( 'THREE.Box3: .getCenter() target is now required' );
+			// console.warn( 'THREE.Box3: .getCenter() target is now required' );
 			target = new Vector3();
 
 		}
@@ -202,7 +202,7 @@ Object.assign( Box3.prototype, {
 
 		if ( target === undefined ) {
 
-			console.warn( 'THREE.Box3: .getSize() target is now required' );
+			// console.warn( 'THREE.Box3: .getSize() target is now required' );
 			target = new Vector3();
 
 		}

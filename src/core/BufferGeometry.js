@@ -37,7 +37,6 @@ function BufferGeometry() {
 	this.attributes = {};
 
 	this.morphAttributes = {};
-	this.morphTargetsRelative = false;
 
 	this.groups = [];
 
@@ -574,20 +573,8 @@ BufferGeometry.prototype = Object.assign( Object.create( EventDispatcher.prototy
 					var morphAttribute = morphAttributesPosition[ i ];
 					_box.setFromBufferAttribute( morphAttribute );
 
-					if ( this.morphTargetsRelative ) {
-
-						_vector.addVectors( this.boundingBox.min, _box.min );
-						this.boundingBox.expandByPoint( _vector );
-
-						_vector.addVectors( this.boundingBox.max, _box.max );
-						this.boundingBox.expandByPoint( _vector );
-
-					} else {
-
-						this.boundingBox.expandByPoint( _box.min );
-						this.boundingBox.expandByPoint( _box.max );
-
-					}
+					this.boundingBox.expandByPoint( _box.min );
+					this.boundingBox.expandByPoint( _box.max );
 
 				}
 
@@ -635,20 +622,8 @@ BufferGeometry.prototype = Object.assign( Object.create( EventDispatcher.prototy
 					var morphAttribute = morphAttributesPosition[ i ];
 					_boxMorphTargets.setFromBufferAttribute( morphAttribute );
 
-					if ( this.morphTargetsRelative ) {
-
-						_vector.addVectors( _box.min, _boxMorphTargets.min );
-						_box.expandByPoint( _vector );
-
-						_vector.addVectors( _box.max, _boxMorphTargets.max );
-						_box.expandByPoint( _vector );
-
-					} else {
-
-						_box.expandByPoint( _boxMorphTargets.min );
-						_box.expandByPoint( _boxMorphTargets.max );
-
-					}
+					_box.expandByPoint( _boxMorphTargets.min );
+					_box.expandByPoint( _boxMorphTargets.max );
 
 				}
 
@@ -676,18 +651,10 @@ BufferGeometry.prototype = Object.assign( Object.create( EventDispatcher.prototy
 				for ( var i = 0, il = morphAttributesPosition.length; i < il; i ++ ) {
 
 					var morphAttribute = morphAttributesPosition[ i ];
-					var morphTargetsRelative = this.morphTargetsRelative;
 
 					for ( var j = 0, jl = morphAttribute.count; j < jl; j ++ ) {
 
 						_vector.fromBufferAttribute( morphAttribute, j );
-
-						if ( morphTargetsRelative ) {
-
-							_offset.fromBufferAttribute( position, j );
-							_vector.add( _offset );
-
-						}
 
 						maxRadiusSq = Math.max( maxRadiusSq, center.distanceToSquared( _vector ) );
 
@@ -961,8 +928,6 @@ BufferGeometry.prototype = Object.assign( Object.create( EventDispatcher.prototy
 
 		}
 
-		geometry2.morphTargetsRelative = this.morphTargetsRelative;
-
 		// groups
 
 		var groups = this.groups;
@@ -1067,12 +1032,7 @@ BufferGeometry.prototype = Object.assign( Object.create( EventDispatcher.prototy
 
 		}
 
-		if ( hasMorphAttributes ) {
-
-			data.data.morphAttributes = morphAttributes;
-			data.data.morphTargetsRelative = this.morphTargetsRelative;
-
-		}
+		if ( hasMorphAttributes ) data.data.morphAttributes = morphAttributes;
 
 		var groups = this.groups;
 
@@ -1183,8 +1143,6 @@ BufferGeometry.prototype = Object.assign( Object.create( EventDispatcher.prototy
 			this.morphAttributes[ name ] = array;
 
 		}
-
-		this.morphTargetsRelative = source.morphTargetsRelative;
 
 		// groups
 

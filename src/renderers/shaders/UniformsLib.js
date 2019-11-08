@@ -1,5 +1,6 @@
 import { Color } from '../../math/Color.js';
 import { Vector2 } from '../../math/Vector2.js';
+import { Vector4 } from '../../math/Vector4.js';
 import { Matrix3 } from '../../math/Matrix3.js';
 
 /**
@@ -17,6 +18,14 @@ var UniformsLib = {
 		uvTransform: { value: new Matrix3() },
 
 		alphaMap: { value: null },
+
+		/**
+		* Add DISSOLUTION effect by wh
+		*/ 
+		dissolutionParam: { value: new Vector4() },
+		dissolutionColor: { value: new Vector4() },
+
+		sectionLineRadius: { value :1 }
 
 	},
 

@@ -44,6 +44,19 @@ Object.assign( BufferAttribute.prototype, {
 
 	isBufferAttribute: true,
 
+	setArrayObject: function ( array ) {
+
+		if ( Array.isArray( array ) ) {
+
+			throw new TypeError( 'THREE.BufferAttribute: array should be a Typed Array.' );
+
+		}
+
+		this.count = array !== undefined ? array.length / this.itemSize : 0;
+		this.array = array;
+
+	},
+
 	onUploadCallback: function () {},
 
 	setUsage: function ( value ) {

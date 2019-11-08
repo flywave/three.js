@@ -92,6 +92,27 @@ import uv2_pars_vertex from './ShaderChunk/uv2_pars_vertex.glsl.js';
 import uv2_vertex from './ShaderChunk/uv2_vertex.glsl.js';
 import worldpos_vertex from './ShaderChunk/worldpos_vertex.glsl.js';
 
+/**
+* Add DISSOLUTION effect by wh
+*/
+import dissolutionmap_fragment from './ShaderChunk/dissolutionmap_fragment.glsl.js';
+import dissolutionmap_vertex from './ShaderChunk/dissolutionmap_vertex.glsl.js';
+import dissolution_pars_fragment from './ShaderChunk/dissolution_pars_fragment.glsl.js';
+
+/**
+* Add SectionLineMesh support by wh
+*/
+import section_line_vertex from './ShaderChunk/section_line_vertex.glsl.js';
+ 
+
+/**
+* Add Content draw support by wh
+*/
+import content_vertex from './ShaderChunk/content_vertex.glsl.js';
+import content_fragment from './ShaderChunk/content_fragment.glsl.js';
+import content_pick_fragment from './ShaderChunk/content_pick_fragment.glsl.js';
+
+
 import background_frag from './ShaderLib/background_frag.glsl.js';
 import background_vert from './ShaderLib/background_vert.glsl.js';
 import cube_frag from './ShaderLib/cube_frag.glsl.js';
@@ -217,6 +238,25 @@ export var ShaderChunk = {
 	uv2_pars_vertex: uv2_pars_vertex,
 	uv2_vertex: uv2_vertex,
 	worldpos_vertex: worldpos_vertex,
+
+	/**
+	* Add DISSOLUTION effect by wh
+	*/
+	dissolutionmap_fragment:dissolutionmap_fragment,
+	dissolutionmap_vertex:dissolutionmap_vertex,
+	dissolution_pars_fragment:dissolution_pars_fragment,
+	/**
+	* Add SectionLineMesh effect by wh
+	*/
+	section_line_vertex:section_line_vertex,
+ 
+
+	/**
+	* Add content effect by wh
+	*/	
+	content_vertex:content_vertex,
+	content_fragment:content_fragment,
+	content_pick_fragment:content_pick_fragment,
 
 	background_frag: background_frag,
 	background_vert: background_vert,

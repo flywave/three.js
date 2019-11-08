@@ -36,6 +36,11 @@ void main() {
 	#include <defaultnormal_vertex>
 
 	#include <begin_vertex>
+
+	#include <section_line_vertex>
+	#include <content_vertex>
+
+	
 	#include <morphtarget_vertex>
 	#include <skinning_vertex>
 	#include <project_vertex>
@@ -47,5 +52,7 @@ void main() {
 	#include <lights_lambert_vertex>
 	#include <shadowmap_vertex>
 	#include <fog_vertex>
+
+	#include <dissolutionmap_vertex>
 }
 `;

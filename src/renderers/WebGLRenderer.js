@@ -302,6 +302,7 @@ function WebGLRenderer( parameters ) {
 		_this.renderLists = renderLists;
 		_this.state = state;
 		_this.info = info;
+		_this.textures = textures;
 
 	}
 
@@ -309,6 +310,19 @@ function WebGLRenderer( parameters ) {
 
 	// vr
 
+	this.resetProgram = function() {
+		state.resetProgram();
+		_currentCamera = null;
+	
+		_currentGeometryProgram = {
+			geometry: null,
+			program: null,
+			wireframe: false
+		};
+		_currentMaterialId = -1;
+	};
+
+	  
 	var vr = ( typeof navigator !== 'undefined' && 'xr' in navigator ) ? new WebXRManager( _this, _gl ) : new WebVRManager( _this );
 
 	this.vr = vr;
@@ -879,6 +893,19 @@ function WebGLRenderer( parameters ) {
 
 	};
 
+	this.updateGeometry = function(geometry) {
+		objects.update({geometry: geometry});
+		return this;
+	};
+
+	this.bindIndex =function(geometry) {
+		if (geometry.index) {
+			_gl.bindBuffer(
+				_gl.ELEMENT_ARRAY_BUFFER, attributes.get(geometry.index).buffer);
+		}
+	};
+
+	  
 	function setupVertexAttributes( object, geometry, material, program ) {
 
 		if ( capabilities.isWebGL2 === false && ( object.isInstancedMesh || geometry.isInstancedBufferGeometry ) ) {
@@ -1026,6 +1053,7 @@ function WebGLRenderer( parameters ) {
 
 	}
 
+	this.setupVertexAttributes = setupVertexAttributes;
 	// Compile
 
 	this.compile = function ( scene, camera ) {
@@ -2029,6 +2057,18 @@ function WebGLRenderer( parameters ) {
 
 		p_uniforms.setValue( _gl, 'modelMatrix', object.matrixWorld );
 
+
+		if (object.type === 'SectionLineMesh') {
+			p_uniforms.setValue(_gl, 'radiusScale', object.radiusScale);
+		}
+	  
+		if (object.type === 'ContentMesh' ||
+			  object.type === 'ContentSectionLineMesh') {
+			p_uniforms.setValue(_gl, 'offsetStep', object.offsetStep);
+			p_uniforms.setValue(_gl, 'batchTexture', object.batchTexture,textures);
+			p_uniforms.setValue(_gl, 'infoTexture', object.infoTexture,textures);
+			p_uniforms.setValue(_gl, 'scaleTexture', object.scaleTexture,textures);
+		}
 		return program;
 
 	}
@@ -2086,6 +2126,21 @@ function WebGLRenderer( parameters ) {
 
 		}
 
+		/**
+		 * Add DISSOLUTION effect by wh
+		 */
+		if (material.enableDissolution) {
+			var dmp = material.dissolutionMeltingPoint;
+			var dcv = material.dissolutionCriticalValue;
+			var res = material.dissolutionNoiseRes;
+			var dcvColor = material.dissolutionCriticalValueColor;
+	
+			uniforms.dissolutionParam.value.set(dmp, dcv, res.x, res.y);
+			if (dcvColor) {
+				uniforms.dissolutionColor.value = dcvColor;
+			}
+		}
+	  
 		if ( material.lightMap ) {
 
 			uniforms.lightMap.value = material.lightMap;
@@ -2782,5 +2837,37 @@ function WebGLRenderer( parameters ) {
 	}
 
 }
+
+// WebGLRenderer.prototype.bindIndex = function (geometry) {
+// 	if (geometry.index) {
+// 	  var _gl = this.context;
+// 	  var attributes = this.attributes;
+  
+// 	  var indexProperties = attributes.get(geometry.index);
+  
+// 	  if (!indexProperties) {
+// 		if (geometry.index.uuid === undefined) {
+// 		  geometry.index.uuid = TMath.generateUUID();
+// 		}
+  
+// 		indexProperties = attributes.update(
+// 		  geometry.index,
+// 		  _gl.ELEMENT_ARRAY_BUFFER
+// 		);
+// 		indexProperties = attributes.get(geometry.index);
+// 	  }
+  
+// 	  _gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, indexProperties.buffer);
+// 	}
+// };
+
+// WebGLRenderer.prototype.resetProgram = function () {
+// 	this._currentProgram = null;
+// 	_currentProgram = null;
+//     _currentCamera = null;
+
+//     _currentGeometryProgram = '';
+//     _currentMaterialId = -1;
+// };
 
 export { WebGLRenderer };

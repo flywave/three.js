@@ -1,6 +1,8 @@
 import { EventDispatcher } from '../core/EventDispatcher.js';
 import { NoColors, FrontSide, FlatShading, NormalBlending, LessEqualDepth, AddEquation, OneMinusSrcAlphaFactor, SrcAlphaFactor, AlwaysStencilFunc, KeepStencilOp } from '../constants.js';
 import { _Math } from '../math/Math.js';
+import { Vector2 } from '../math/Vector2.js';
+import { Vector4 } from '../math/Vector4.js';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -52,6 +54,15 @@ function Material() {
 	this.clippingPlanes = null;
 	this.clipIntersection = false;
 	this.clipShadows = false;
+
+	/**
+	* Add DISSOLUTION effect by wh
+	*/	
+	this.enableDissolution = true;
+	this.dissolutionNoiseRes = new Vector2(60,60.0);
+	this.dissolutionMeltingPoint =0.00001;
+	this.dissolutionCriticalValue =0.000001;
+	this.dissolutionCriticalValueColor = new Vector4(0.8,9.0,0.0,1.0);
 
 	this.shadowSide = null;
 
