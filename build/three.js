@@ -2,7 +2,7 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
 	typeof define === 'function' && define.amd ? define(['exports'], factory) :
 	(global = global || self, factory(global.THREE = {}));
-}(this, (function (exports) { 'use strict';
+}(this, function (exports) { 'use strict';
 
 	// Polyfills
 
@@ -8605,7 +8605,7 @@
 		/**
 		* Add DISSOLUTION effect by wh
 		*/	
-		this.enableDissolution = true;
+		this.enableDissolution = false;
 		this.dissolutionNoiseRes = new Vector2(60,60.0);
 		this.dissolutionMeltingPoint =0.00001;
 		this.dissolutionCriticalValue =0.000001;
@@ -50339,4 +50339,4 @@
 
 	Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
